@@ -14,7 +14,7 @@ public class BuildingMenager : MonoBehaviour
     {
         mainCamera = Camera.main;
 
-        buildingTypeList = Resources.Load<BuildingTypeSO>(typeof(BuldingTypeListSO).Name);
+        buildingTypeList = Resources.Load<BuldingTypeListSO>(typeof(BuldingTypeListSO).Name);
         buildingType = buildingTypeList.list[0];
     }
     private void Update()
@@ -23,13 +23,13 @@ public class BuildingMenager : MonoBehaviour
         {
             Instantiate(buildingType.prefab, GetMouseWorldPosition(), Quaternion.identity);
         }
-        if (Input.GetKeyDown("T"))
+        if (Input.GetKeyDown(KeyCode.T))
         {
-            buildingType = buildingType.list[0];
+            buildingType = buildingTypeList.list[0];
         }
-        if (Input.GetKeyDown("Y"))
+        if (Input.GetKeyDown(KeyCode.Y))
         {
-            buildingType = buildingType.list[1];
+            buildingType = buildingTypeList.list[1];
         }
 
     }
