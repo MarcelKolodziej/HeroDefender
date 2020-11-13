@@ -44,7 +44,7 @@ public class LevelManager : MonoBehaviour
 
     private IEnumerator HandleNewWave()
     {
-        while (CurrentWave <= Waves.Length)
+        while (CurrentWave <= Waves.Length-1)
         {
             CurrentWaveTime = NewWaveDelay;
 
@@ -57,11 +57,21 @@ public class LevelManager : MonoBehaviour
 
             CurrentWaveTime = Waves[CurrentWave].WaveLenght;
 
+            foreach (EnemieSpawner enemieSpawner in Waves[CurrentWave].EnemySpawners)
+            {
+                enemieSpawner.StartSpawningEnemies(Waves[CurrentWave].EnemySpawnRate);
+            }
+
             while (CurrentWaveTime > 0)
             {
                 CurrentWaveTime -= Time.deltaTime;
                 TimerText.text = "Wave Over\n" + CurrentWaveTime.ToString("F2");
                 yield return WaitForEndOfFrame;
+            }
+
+            foreach (EnemieSpawner enemieSpawner in Waves[CurrentWave].EnemySpawners)
+            {
+                enemieSpawner.StopSpawningEnemies();
             }
 
             CurrentWave++;

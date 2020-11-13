@@ -5,9 +5,10 @@ namespace GameData
     [System.Serializable]
     public class WaveData
     {
+        [Header("Wave Settings")]
         public float WaveLenght = 1f;
-        public int NumberOfEnemies;
-        public GameObject[] EnemiePrefabs;
-        public GameObject[] SpawnPoints;
+        public float EnemySpawnRate = 0.5f;
+        [Space]
+        public EnemieSpawner[] EnemySpawners;
     }
 }
