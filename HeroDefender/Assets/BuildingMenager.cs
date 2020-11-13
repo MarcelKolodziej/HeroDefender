@@ -14,7 +14,7 @@ public class BuildingMenager : MonoBehaviour
     {
         mainCamera = Camera.main;
 
-        buildingTypeList = Resources.Load<BuldingTypeListSO>(typeof(BuldingTypeListSO).Name);
+        buildingTypeList = Resources.Load<BuldingTypeListSO>("BuildingTypeSO");
         buildingType = buildingTypeList.list[0];
     }
     private void Update()
