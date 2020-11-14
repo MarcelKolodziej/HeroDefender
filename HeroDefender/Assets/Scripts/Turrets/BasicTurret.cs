@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System.Linq;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,26 +7,34 @@ public class BasicTurret : MonoBehaviour
 {
     [Header("Turret Settings")]
     [SerializeField] public int TurretDamage = 2;
+    [SerializeField] public float FireSpeed = 1f;
     [SerializeField] private float RotateSpeed;
     [SerializeField] private Transform TurretBarrel;
 
-    private BasicEnemy Enemy;
+    private List<BasicEnemy> Enemies = new List<BasicEnemy>();
     private Vector3 targetDirection;
     private Quaternion targetRotation;
+    private float CurrentFireTick = 0f;
 
 
     public void Update()
     {
-        if (Enemy != null)
+        CurrentFireTick += Time.deltaTime;
+
+        if (Enemies.Any())
         {
-            targetDirection = (Enemy.transform.position - TurretBarrel.transform.position).normalized;
+            targetDirection = (Enemies[0].transform.position - TurretBarrel.transform.position).normalized;
             targetRotation = Quaternion.FromToRotation(Vector3.up, targetDirection);
 
             TurretBarrel.rotation = Quaternion.RotateTowards(TurretBarrel.rotation, targetRotation, Time.deltaTime * RotateSpeed);
 
             if (TurretBarrel.rotation == targetRotation)
             {
-                Fire();
+                if (CurrentFireTick >= FireSpeed)
+                {
+                    CurrentFireTick = 0f;
+                    Fire();
+                }
             }
         }
     }
@@ -34,27 +43,29 @@ public class BasicTurret : MonoBehaviour
     {
         Debug.Log("Fire");
 
-        if (Enemy.TakeDamage(TurretDamage))
+        if (Enemies[0].TakeDamage(TurretDamage))
         {
             Debug.Log("Enemy Killed");
-            Enemy = null;
         }
     }
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("Trigger Enter: "+ collision.gameObject.name);
+        Debug.Log("Trigger Enter: " + collision.gameObject.name);
 
-        if (Enemy == null)
+        if (collision.gameObject.layer == 10)
         {
-            Enemy = collision.gameObject.GetComponent<BasicEnemy>();
+            Enemies.Add(collision.gameObject.GetComponent<BasicEnemy>());
         }
     }
 
     public void OnTriggerExit2D(Collider2D collision)
     {
-        Debug.Log("Trigger Exit");
+        Debug.Log("Trigger Exit: " + collision.gameObject.name);
 
-        Enemy = null;
+        if (collision.gameObject.layer == 10)
+        {
+            Enemies.Remove(collision.gameObject.GetComponent<BasicEnemy>());
+        }
     }
 }

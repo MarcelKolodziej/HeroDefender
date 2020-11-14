@@ -16,21 +16,17 @@ public class BuildingUIButton : MonoBehaviour, IPointerDownHandler, IDragHandler
     {
         if (LevelManager.m_LevelManager.CurrentIron > BuildingIronCost && LevelManager.m_LevelManager.CurrentGold > BuildingGoldCost)
         {
-            Debug.Log("On Mouse Down");
+            //Debug.Log("On Mouse Down");
             Building.gameObject.SetActive(true);
             NewDraggableBuildingPosition = MainCamera.ScreenToWorldPoint(Input.mousePosition);
             NewDraggableBuildingPosition.z = 0;
             Building.transform.position = NewDraggableBuildingPosition;
         }
-        else
-        {
-            Debug.Log("Not Enough Currency");
-        }
     }
 
     public void OnDrag(PointerEventData eventData)
     {
-        Debug.Log("On Mouse Drag");
+        //Debug.Log("On Mouse Drag");
 
         if (Building != null)
         {
@@ -42,16 +38,16 @@ public class BuildingUIButton : MonoBehaviour, IPointerDownHandler, IDragHandler
     
     public void OnPointerUp(PointerEventData eventData)
     {
-        Debug.Log("On Mouse Up");
+        //Debug.Log("On Mouse Up");
 
         if (Building.IsOverlapping == true || LevelManager.m_LevelManager.CurrentIron < BuildingIronCost || LevelManager.m_LevelManager.CurrentGold < BuildingGoldCost)
         {
-            Debug.Log("Building Overlapping or Not Enough Funds");
+            //Debug.Log("Building Overlapping or Not Enough Funds");
             Building.gameObject.SetActive(false);
         }
         else
         { 
-            Debug.Log("Building Created");
+            //Debug.Log("Building Created");
             Building.gameObject.SetActive(false);
             LevelManager.m_LevelManager.BuildingPurchased(BuildingIronCost, BuildingGoldCost);
             Instantiate(BuildingPrefab, NewDraggableBuildingPosition, Quaternion.identity);

@@ -10,51 +10,52 @@ public class CameraController : MonoBehaviour
     [SerializeField] private float DragSpeed = 1f;
 
     private Vector2 dragOrigin;
-    private Vector2 newPosition;
-    private Vector2 moveAmount;
+    private Vector2 distanceTravelled;
+    private Vector2 amountToMove;
+    private Vector3 newPosition;
+    private Vector4 CameraRestrictorBounds;
 
     private void Start()
     {
-        Debug.Log(CameraRestrictor.size.x);
+        CameraRestrictorBounds = new Vector4
+            (CameraRestrictor.size.x / 2,
+            -(CameraRestrictor.size.x / 2),
+            (CameraRestrictor.size.y + (CameraRestrictor.offset.y * 2)) / 2,
+            -((CameraRestrictor.size.y - (CameraRestrictor.offset.y * 2)) / 2));
     }
 
     public void OnPointerDown(BaseEventData data)
     {
         dragOrigin = data.currentInputModule.input.mousePosition;
-        Debug.Log("On Mouse Down: " + dragOrigin);
+        //Debug.Log("On Mouse Down: " + dragOrigin);
     }
 
     public void OnDrag(BaseEventData data)
     {
-        newPosition = MainCamera.ScreenToViewportPoint(data.currentInputModule.input.mousePosition - dragOrigin);
-        Debug.Log("On Mouse Drag: " + newPosition);
+        distanceTravelled = MainCamera.ScreenToViewportPoint(data.currentInputModule.input.mousePosition - dragOrigin);
+        amountToMove = new Vector2(-distanceTravelled.x * DragSpeed, -distanceTravelled.y * DragSpeed);
+        newPosition = new Vector3(amountToMove.x + MainCamera.transform.position.x, amountToMove.y + MainCamera.transform.position.y, MainCamera.transform.position.z);
 
-        moveAmount = new Vector2(-newPosition.x * DragSpeed, -newPosition.y * DragSpeed);
-
-        if (newPosition.x > (CameraRestrictor.size.x / 2))
+        if (newPosition.x > CameraRestrictorBounds.x)
         {
-            moveAmount.x = CameraRestrictor.size.x / 2;
+            newPosition.x = CameraRestrictorBounds.x;
         }
 
-        if (newPosition.x < -(CameraRestrictor.size.x / 2))
+        if (newPosition.x < CameraRestrictorBounds.y)
         {
-            moveAmount.x = -(CameraRestrictor.size.x / 2);
+            newPosition.x = CameraRestrictorBounds.y;
         }
 
-        if (newPosition.y > (CameraRestrictor.size.y / 2))
+        if (newPosition.y > CameraRestrictorBounds.z)
         {
-            moveAmount.y = CameraRestrictor.size.y / 2;
+            newPosition.y = CameraRestrictorBounds.z;
         }
 
-        if (newPosition.y < -(CameraRestrictor.size.y / 2))
+        if (newPosition.y < CameraRestrictorBounds.w)
         {
-            moveAmount.y = -(CameraRestrictor.size.x / 2);
+            newPosition.y = CameraRestrictorBounds.w;
         }
 
-        MainCamera.transform.Translate(moveAmount, Space.World);
-    }
-
-    private void OnMouseUp()
-    {
+        MainCamera.transform.position = newPosition;
     }
 }
