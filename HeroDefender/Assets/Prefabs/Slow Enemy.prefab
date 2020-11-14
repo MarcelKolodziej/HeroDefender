@@ -130,8 +130,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HealthBar: {fileID: 7138847221550134007}
   DefaultHealthBarScale: {x: 1, y: 0.16, z: 1}
-  MaxHealth: 60
-  AttackDamage: 15
+  MaxHealth: 100
+  AttackDamage: 12
   CurrentLocationIndex: 0
   MovementSpeed: 0.5
 --- !u!61 &3960487733418573986

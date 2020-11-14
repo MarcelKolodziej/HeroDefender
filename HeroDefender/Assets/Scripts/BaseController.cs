@@ -31,7 +31,6 @@ public class BaseController : MonoBehaviour
 
         if (CurrentHealth <= 0)
         {
-            gameObject.SetActive(false);
             Debug.Log("You Lost");
         }
     }

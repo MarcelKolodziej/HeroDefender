@@ -346,7 +346,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Cost: 5 Iron'
+  m_text: 'Cost: 10 Iron'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -10501,7 +10501,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Damage: 20
+  m_text: 'Damage: 25
 
     Range: 12
 
@@ -12014,7 +12014,7 @@ MonoBehaviour:
   BuildingInfoPannel: {fileID: 1372464104}
   Building: {fileID: 493127382}
   BuildingPrefab: {fileID: 1712340648592129426, guid: 19be1d309402af34fa5cd6d416e3eefe, type: 3}
-  BuildingIronCost: 5
+  BuildingIronCost: 10
   BuildingGoldCost: 0
 --- !u!1 &643162576
 GameObject:
@@ -12050,8 +12050,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -95.09593}
-  m_SizeDelta: {x: -30, y: -190.20815}
+  m_AnchoredPosition: {x: 0.0000076293945, y: -95.09593}
+  m_SizeDelta: {x: -30.00002, y: -190.20815}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &643162578
 MonoBehaviour:
@@ -12073,7 +12073,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Can't aim whilst firing, but hits heavy.
+  m_text: Can't aim whilst reloading, hits heavy.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -14476,7 +14476,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Damage: 5
+  m_text: 'Damage: 10
 
     Range: 9
 
@@ -14967,7 +14967,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Cost: 10 Iron'
+  m_text: 'Cost: 6 Iron'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -15160,7 +15160,7 @@ MonoBehaviour:
   BuildingInfoPannel: {fileID: 263409944}
   Building: {fileID: 1908594408}
   BuildingPrefab: {fileID: 3945650538412356772, guid: 67ddbd25efe03864fb26e6c705f42629, type: 3}
-  BuildingIronCost: 10
+  BuildingIronCost: 6
   BuildingGoldCost: 0
 --- !u!222 &1562115097
 CanvasRenderer:
@@ -16107,7 +16107,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94f89d21130c3d14e882c04d5fd3d576, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StartingIron: 100
+  StartingIron: 200
   StartingGold: 65
   NewWaveDelay: 5
   Waves:

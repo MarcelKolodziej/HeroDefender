@@ -94,7 +94,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89314040ee34e4245a1125c17076eb4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TurretDamage: 20
+  TurretDamage: 25
   DeploySpeed: 1
   FireSpeed: 1.5
   RotateSpeed: 40
