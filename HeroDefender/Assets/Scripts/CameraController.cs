@@ -7,6 +7,7 @@ using UnityEngine.EventSystems;
 public class CameraController : MonoBehaviour
 {
     [SerializeField] private Camera MainCamera;
+    [SerializeField] private Vector3 CameraDefaultPosition = new Vector3(0f, 0f, 10f);
     [SerializeField] private float MaxOthographicView = 10;
     [SerializeField] private float minOthographicView = 4;
 
@@ -17,20 +18,35 @@ public class CameraController : MonoBehaviour
     private Vector2 distanceTravelled;
     private Vector2 amountToMove;
     private Vector3 newPosition;
-    private Vector4 CameraRestrictorBounds;
+    private Vector4 cameraRestrictorBounds;
 
     private void Start()
     {
-        CameraRestrictorBounds = new Vector4
-            (CameraRestrictor.size.x / 2,
-            -(CameraRestrictor.size.x / 2),
-            (CameraRestrictor.size.y + (CameraRestrictor.offset.y * 2)) / 2,
-            -((CameraRestrictor.size.y - (CameraRestrictor.offset.y * 2)) / 2));
+        UpdateCameraRestrictorBounds();
+    }
+
+    public void UpdateCameraRestrictorBounds()
+    {
+        float screenAspect = (float)(Screen.width / (float)Screen.height);
+        float cameraHeight = MainCamera.orthographicSize;
+
+        cameraRestrictorBounds = new Vector4
+        ((CameraRestrictor.size.x / 2) - ((screenAspect * cameraHeight)),
+        -((CameraRestrictor.size.x / 2) - ((screenAspect * cameraHeight))),
+        ((CameraRestrictor.size.y + (CameraRestrictor.offset.y * 2)) / 2) - cameraHeight,
+        -((CameraRestrictor.size.y - (CameraRestrictor.offset.y * 2)) / 2) + cameraHeight);
     }
 
     public void OnViewSliderChanged(Slider slider)
     {
         MainCamera.orthographicSize = Mathf.Lerp(minOthographicView, MaxOthographicView, slider.value);
+        UpdateCameraRestrictorBounds();
+        MainCamera.transform.position = ValidateNewPosition(newPosition);
+    }
+
+    public void ResetCameraPosition()
+    {
+        MainCamera.transform.position = CameraDefaultPosition;
     }
 
     public void OnPointerDown(BaseEventData data)
@@ -45,26 +61,31 @@ public class CameraController : MonoBehaviour
         amountToMove = new Vector2(-distanceTravelled.x * DragSpeed, -distanceTravelled.y * DragSpeed);
         newPosition = new Vector3(amountToMove.x + MainCamera.transform.position.x, amountToMove.y + MainCamera.transform.position.y, MainCamera.transform.position.z);
 
-        if (newPosition.x > CameraRestrictorBounds.x)
+        MainCamera.transform.position = ValidateNewPosition(newPosition);
+    }
+
+    private Vector3 ValidateNewPosition(Vector3 position)
+    {
+        if (position.x > cameraRestrictorBounds.x)
         {
-            newPosition.x = CameraRestrictorBounds.x;
+            position.x = cameraRestrictorBounds.x;
         }
 
-        if (newPosition.x < CameraRestrictorBounds.y)
+        if (position.x < cameraRestrictorBounds.y)
         {
-            newPosition.x = CameraRestrictorBounds.y;
+            position.x = cameraRestrictorBounds.y;
         }
 
-        if (newPosition.y > CameraRestrictorBounds.z)
+        if (position.y > cameraRestrictorBounds.z)
         {
-            newPosition.y = CameraRestrictorBounds.z;
+            position.y = cameraRestrictorBounds.z;
         }
 
-        if (newPosition.y < CameraRestrictorBounds.w)
+        if (position.y < cameraRestrictorBounds.w)
         {
-            newPosition.y = CameraRestrictorBounds.w;
+            position.y = cameraRestrictorBounds.w;
         }
 
-        MainCamera.transform.position = newPosition;
+        return position;
     }
 }
