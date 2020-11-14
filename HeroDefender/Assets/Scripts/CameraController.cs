@@ -1,11 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
 public class CameraController : MonoBehaviour
 {
     [SerializeField] private Camera MainCamera;
+    [SerializeField] private float MaxOthographicView = 10;
+    [SerializeField] private float minOthographicView = 4;
+
     [SerializeField] private BoxCollider2D CameraRestrictor;
     [SerializeField] private float DragSpeed = 1f;
 
@@ -22,6 +26,11 @@ public class CameraController : MonoBehaviour
             -(CameraRestrictor.size.x / 2),
             (CameraRestrictor.size.y + (CameraRestrictor.offset.y * 2)) / 2,
             -((CameraRestrictor.size.y - (CameraRestrictor.offset.y * 2)) / 2));
+    }
+
+    public void OnViewSliderChanged(Slider slider)
+    {
+        MainCamera.orthographicSize = Mathf.Lerp(minOthographicView, MaxOthographicView, slider.value);
     }
 
     public void OnPointerDown(BaseEventData data)

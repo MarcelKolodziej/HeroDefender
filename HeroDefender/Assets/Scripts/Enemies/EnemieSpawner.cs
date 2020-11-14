@@ -6,6 +6,7 @@ public class EnemieSpawner : MonoBehaviour
 {
     [Header("Enemy Settings")]
     [SerializeField] private BasicEnemy EnemyPrefab;
+    [SerializeField] private int maxEnemies = 10;
     [SerializeField] private Transform[] EnemyPath;
 
     [Header("ObjectPoolSettings")]
@@ -15,6 +16,7 @@ public class EnemieSpawner : MonoBehaviour
     private List<BasicEnemy> activeEnemies = new List<BasicEnemy>();
     private float spawnRate = 0.0f;
     private float currentSpawnTick = 0.0f;
+    private int EnemiesSpawnedThisWave = 0;
     private bool spawnEnemies = false;
 
     public void Start()
@@ -31,19 +33,24 @@ public class EnemieSpawner : MonoBehaviour
 
     public void SpawnEnemy()
     {
-        if (pooledEnemies.Count > 0)
+        if (EnemiesSpawnedThisWave < maxEnemies)
         {
-            activeEnemies.Add(pooledEnemies.Dequeue());
-            Debug.Log("Take From Pool: " + pooledEnemies.Count);
-        }
-        else
-        {
-            activeEnemies.Add(Instantiate(EnemyPrefab));
-            Debug.Log("Spawn New: " + activeEnemies.Count);
-        }
+            EnemiesSpawnedThisWave++;
 
-        activeEnemies[activeEnemies.Count-1].RespawnEnemy();
-        activeEnemies[activeEnemies.Count - 1].transform.position = EnemyPath[0].position;
+            if (pooledEnemies.Count > 0)
+            {
+                activeEnemies.Add(pooledEnemies.Dequeue());
+                Debug.Log("Take From Pool: " + pooledEnemies.Count);
+            }
+            else
+            {
+                activeEnemies.Add(Instantiate(EnemyPrefab));
+                Debug.Log("Spawn New: " + activeEnemies.Count);
+            }
+
+            activeEnemies[activeEnemies.Count - 1].RespawnEnemy();
+            activeEnemies[activeEnemies.Count - 1].transform.position = EnemyPath[0].position;
+        }
     }
 
     public void Update()
@@ -99,6 +106,7 @@ public class EnemieSpawner : MonoBehaviour
 
     public void StopSpawningEnemies()
     {
+        EnemiesSpawnedThisWave = 0;
         spawnEnemies = false;
     }
 }
