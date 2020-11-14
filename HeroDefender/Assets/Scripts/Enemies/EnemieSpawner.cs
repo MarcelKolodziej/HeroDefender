@@ -6,7 +6,8 @@ public class EnemieSpawner : MonoBehaviour
 {
     [Header("Enemy Settings")]
     [SerializeField] private BasicEnemy EnemyPrefab;
-    [SerializeField] private int maxEnemies = 10;
+    [SerializeField] private int MaxEnemies = 10;
+    [SerializeField] private float SpawnRate = 1f;
     [SerializeField] private Transform[] EnemyPath;
 
     [Header("ObjectPoolSettings")]
@@ -14,7 +15,6 @@ public class EnemieSpawner : MonoBehaviour
 
     private Queue<BasicEnemy> pooledEnemies = new Queue<BasicEnemy>();
     private List<BasicEnemy> activeEnemies = new List<BasicEnemy>();
-    private float spawnRate = 0.0f;
     private float currentSpawnTick = 0.0f;
     private int EnemiesSpawnedThisWave = 0;
     private bool spawnEnemies = false;
@@ -33,7 +33,7 @@ public class EnemieSpawner : MonoBehaviour
 
     public void SpawnEnemy()
     {
-        if (EnemiesSpawnedThisWave < maxEnemies)
+        if (EnemiesSpawnedThisWave < MaxEnemies)
         {
             EnemiesSpawnedThisWave++;
 
@@ -59,7 +59,7 @@ public class EnemieSpawner : MonoBehaviour
         {
             currentSpawnTick += Time.deltaTime;
 
-            if (currentSpawnTick >= spawnRate)
+            if (currentSpawnTick >= SpawnRate)
             {
                 currentSpawnTick = 0f;
                 SpawnEnemy();
@@ -98,9 +98,8 @@ public class EnemieSpawner : MonoBehaviour
         }
     }
 
-    public void StartSpawningEnemies(float SpawnRate)
+    public void StartSpawningEnemies()
     {
-        spawnRate = SpawnRate;
         spawnEnemies = true;
     }
 

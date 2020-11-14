@@ -86,6 +86,8 @@ public class CameraController : MonoBehaviour
             position.y = cameraRestrictorBounds.w;
         }
 
+        position.z = CameraDefaultPosition.z;
+
         return position;
     }
 }

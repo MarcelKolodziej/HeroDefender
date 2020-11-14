@@ -6,52 +6,71 @@ using UnityEngine;
 public class BasicTurret : MonoBehaviour
 {
     [Header("Turret Settings")]
-    [SerializeField] public int TurretDamage = 2;
-    [SerializeField] public float FireSpeed = 1f;
-    [SerializeField] private float RotateSpeed;
-    [SerializeField] private Transform TurretBarrel;
+    [SerializeField] protected int TurretDamage = 2;
+    [SerializeField] protected float DeploySpeed = 0.5f;
+    [SerializeField] protected float FireSpeed = 1f;
+    [SerializeField] protected float RotateSpeed;
+    [SerializeField] protected Transform TurretBarrel;
 
-    private List<BasicEnemy> Enemies = new List<BasicEnemy>();
-    private Vector3 targetDirection;
-    private Quaternion targetRotation;
-    private float CurrentFireTick = 0f;
+    protected List<BasicEnemy> Enemies = new List<BasicEnemy>();
+    protected Vector3 targetDirection;
+    protected Quaternion targetRotation;
+    protected float currentDeployTick = 0f;
+    protected float CurrentFireTick = 0f;
 
 
-    public void Update()
+    public virtual void Update()
     {
-        CurrentFireTick += Time.deltaTime;
-
-        if (Enemies.Any())
+        if (currentDeployTick < DeploySpeed)
         {
-            targetDirection = (Enemies[0].transform.position - TurretBarrel.transform.position).normalized;
-            targetRotation = Quaternion.FromToRotation(Vector3.up, targetDirection);
+            currentDeployTick += Time.deltaTime;
 
-            TurretBarrel.rotation = Quaternion.RotateTowards(TurretBarrel.rotation, targetRotation, Time.deltaTime * RotateSpeed);
-
-            if (TurretBarrel.rotation == targetRotation)
+            // If the turret is deployed and an enemey is avalible it sets the gun barrel to that transform immeditaly
+            if (currentDeployTick > DeploySpeed)
             {
-                if (CurrentFireTick >= FireSpeed)
+                TurretBarrel.gameObject.SetActive(true);
+
+                if (Enemies.Any())
                 {
-                    CurrentFireTick = 0f;
-                    Fire();
+                    targetDirection = (Enemies[0].transform.position - TurretBarrel.transform.position).normalized;
+                    targetRotation = Quaternion.FromToRotation(Vector3.up, targetDirection);
+                    TurretBarrel.rotation = targetRotation;
+
+                }
+            }
+        }
+        else
+        {
+            CurrentFireTick += Time.deltaTime;
+
+            if (Enemies.Any())
+            {
+                targetDirection = (Enemies[0].transform.position - TurretBarrel.transform.position).normalized;
+                targetRotation = Quaternion.FromToRotation(Vector3.up, targetDirection);
+
+                TurretBarrel.rotation = Quaternion.RotateTowards(TurretBarrel.rotation, targetRotation, Time.deltaTime * RotateSpeed);
+
+                if (TurretBarrel.rotation == targetRotation)
+                {
+                    if (CurrentFireTick >= FireSpeed)
+                    {
+                        CurrentFireTick = 0f;
+                        Fire();
+                    }
                 }
             }
         }
     }
     
-    public void Fire()
+    public virtual void Fire()
     {
-        Debug.Log("Fire");
-
-        if (Enemies[0].TakeDamage(TurretDamage))
-        {
-            Debug.Log("Enemy Killed");
-        }
+        // Debug.Log("Fire");
+        Enemies[0].TakeDamage(TurretDamage);
     }
 
-    public void OnTriggerEnter2D(Collider2D collision)
+    public virtual void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("Trigger Enter: " + collision.gameObject.name);
+        //Debug.Log("Trigger Enter: " + collision.gameObject.name);
 
         if (collision.gameObject.layer == 10)
         {
@@ -59,9 +78,9 @@ public class BasicTurret : MonoBehaviour
         }
     }
 
-    public void OnTriggerExit2D(Collider2D collision)
+    public virtual void OnTriggerExit2D(Collider2D collision)
     {
-        Debug.Log("Trigger Exit: " + collision.gameObject.name);
+        //Debug.Log("Trigger Exit: " + collision.gameObject.name);
 
         if (collision.gameObject.layer == 10)
         {

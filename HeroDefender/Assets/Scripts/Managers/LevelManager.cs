@@ -59,7 +59,7 @@ public class LevelManager : MonoBehaviour
 
             foreach (EnemieSpawner enemieSpawner in Waves[CurrentWave].EnemySpawners)
             {
-                enemieSpawner.StartSpawningEnemies(Waves[CurrentWave].EnemySpawnRate);
+                enemieSpawner.StartSpawningEnemies();
             }
 
             while (CurrentWaveTime > 0)

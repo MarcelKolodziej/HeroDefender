@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class BuildingUIButton : MonoBehaviour, IPointerDownHandler, IDragHandler, IPointerUpHandler
+public class BuildingUIButton : MonoBehaviour, IPointerDownHandler, IDragHandler, IPointerUpHandler, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField] private Camera MainCamera;
+    [SerializeField] private GameObject BuildingInfoPannel;
     [SerializeField] private DraggableOverlay Building;
     [SerializeField] private GameObject BuildingPrefab;
     [SerializeField] private int BuildingIronCost = 10;
@@ -18,6 +19,7 @@ public class BuildingUIButton : MonoBehaviour, IPointerDownHandler, IDragHandler
         {
                 Debug.Log("On Left Click");
                 Building.gameObject.SetActive(true);
+                BuildingInfoPannel.SetActive(false);
                 NewDraggableBuildingPosition = MainCamera.ScreenToWorldPoint(Input.mousePosition);
                 NewDraggableBuildingPosition.z = 0;
                 Building.transform.position = NewDraggableBuildingPosition;
@@ -52,5 +54,15 @@ public class BuildingUIButton : MonoBehaviour, IPointerDownHandler, IDragHandler
             LevelManager.m_LevelManager.BuildingPurchased(BuildingIronCost, BuildingGoldCost);
             Instantiate(BuildingPrefab, NewDraggableBuildingPosition, Quaternion.identity);
         }
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        BuildingInfoPannel.SetActive(true);
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        BuildingInfoPannel.SetActive(false);
     }
 }

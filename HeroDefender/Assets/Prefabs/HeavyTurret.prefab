@@ -91,10 +91,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 6892360406306847496}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e46de36c7d89aa2448006a1863fca5e4, type: 3}
+  m_Script: {fileID: 11500000, guid: 89314040ee34e4245a1125c17076eb4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   TurretDamage: 20
+  DeploySpeed: 1
   FireSpeed: 1.5
   RotateSpeed: 40
   TurretBarrel: {fileID: 7060539615778478925}
@@ -265,7 +266,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7060539615778478925
 Transform:
   m_ObjectHideFlags: 0

@@ -373,6 +373,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TurretDamage: 5
+  DeploySpeed: 0.5
   FireSpeed: 0.5
   RotateSpeed: 70
   TurretBarrel: {fileID: 1712340649055118193}
@@ -429,7 +430,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1712340649055118193
 Transform:
   m_ObjectHideFlags: 0
