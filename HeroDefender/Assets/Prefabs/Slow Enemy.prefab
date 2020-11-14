@@ -128,9 +128,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6411ebd17386bbb419733767af7d8d41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DefaultHealthBarScale: {x: 1, y: 0.16, z: 1}
   HealthBar: {fileID: 7138847221550134007}
+  DefaultHealthBarScale: {x: 1, y: 0.16, z: 1}
   MaxHealth: 60
+  AttackDamage: 15
   CurrentLocationIndex: 0
   MovementSpeed: 0.5
 --- !u!61 &3960487733418573986

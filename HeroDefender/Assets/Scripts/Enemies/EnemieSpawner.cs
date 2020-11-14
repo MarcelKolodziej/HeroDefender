@@ -79,7 +79,7 @@ public class EnemieSpawner : MonoBehaviour
 
                     if (enemy.CurrentLocationIndex >= EnemyPath.Length-1)
                     {
-                        Debug.Log("Damage Base");
+                        Debug.LogError("Please Make sure the enemy can each the base");
                         enemy.gameObject.SetActive(false);
                     }
                 }

@@ -89,7 +89,14 @@ public class LevelManager : MonoBehaviour
 
     private void UpdateCurrentWaveGUI()
     {
-        WavesText.text = "Wave\n" + (CurrentWave+1) + "/" + Waves.Length;
+        if (CurrentWave <= Waves.Length - 1)
+        {
+            WavesText.text = "Wave\n" + (CurrentWave + 1) + "/" + Waves.Length;
+        }
+        else
+        {
+            WavesText.text = "Wave\n" + Waves.Length + "/" + Waves.Length;
+        }
     }
 
     private void UpdateResourcesGUI()
