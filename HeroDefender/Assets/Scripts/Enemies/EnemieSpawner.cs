@@ -15,6 +15,9 @@ public class EnemieSpawner : MonoBehaviour
 
     private Queue<BasicEnemy> pooledEnemies = new Queue<BasicEnemy>();
     private List<BasicEnemy> activeEnemies = new List<BasicEnemy>();
+
+    protected Vector3 targetDirection;
+    protected Quaternion targetRotation;
     private float currentSpawnTick = 0.0f;
     private int EnemiesSpawnedThisWave = 0;
     private bool spawnEnemies = false;
@@ -72,6 +75,10 @@ public class EnemieSpawner : MonoBehaviour
             if (enemy.gameObject.activeInHierarchy)
             {
                 enemy.transform.position = Vector3.MoveTowards(enemy.transform.position, EnemyPath[enemy.CurrentLocationIndex + 1].position, enemy.MovementSpeed * Time.deltaTime);
+                
+                targetDirection = (EnemyPath[enemy.CurrentLocationIndex + 1].transform.position - enemy.transform.position).normalized;
+                targetRotation = Quaternion.FromToRotation(Vector3.right, targetDirection);
+                enemy.transform.rotation = Quaternion.RotateTowards(enemy.transform.rotation, targetRotation, Time.deltaTime * enemy.RotateSpeed);
 
                 if (enemy.transform.position == EnemyPath[enemy.CurrentLocationIndex + 1].position)
                 {
@@ -79,7 +86,7 @@ public class EnemieSpawner : MonoBehaviour
 
                     if (enemy.CurrentLocationIndex >= EnemyPath.Length-1)
                     {
-                        Debug.LogError("Please Make sure the enemy can each the base");
+                        Debug.LogError("Please Make sure the enemy can reach the base");
                         enemy.gameObject.SetActive(false); 
                     }
                 }

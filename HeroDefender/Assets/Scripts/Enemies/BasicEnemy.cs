@@ -10,8 +10,10 @@ public class BasicEnemy : MonoBehaviour
     [SerializeField] private int MaxHealth = 5;
     [SerializeField] private int AttackDamage = 3;
 
+    [Header("Movement Settings")]
     public int CurrentLocationIndex = 0;
     public float MovementSpeed = 0.05f;
+    public float RotateSpeed = 40;
 
     private int CurrentHealth;
 
