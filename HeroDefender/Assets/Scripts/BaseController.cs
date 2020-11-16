@@ -26,7 +26,7 @@ public class BaseController : MonoBehaviour
     public void TakeDamage(int damage)
     {
         CurrentHealth -= damage;
-        HealthBar.transform.localScale = new Vector3(Mathf.Lerp(0f, DefaultHealthBarScale.x, ((float)CurrentHealth / MaxHealth)), DefaultHealthBarScale.y, 1);
+        HealthBar.transform.localScale = new Vector3(Mathf.Lerp(0f, DefaultHealthBarScale.x, ((float)CurrentHealth / MaxHealth)), DefaultHealthBarScale.y, DefaultHealthBarScale.z);
         UpdatedHealthBarColour();
 
         if (CurrentHealth <= 0)
