@@ -732,6 +732,7 @@ MonoBehaviour:
   - {fileID: 849310969}
   - {fileID: 1241767547}
   - {fileID: 437240439}
+  SpawnDirectionVector: {x: -1, y: 0, z: 0}
   DefaultPoolSize: 10
 --- !u!4 &132979335
 Transform:
@@ -6439,8 +6440,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -3.9999924}
-  m_SizeDelta: {x: 486, y: -8.000014}
+  m_AnchoredPosition: {x: 0, y: 7.49878}
+  m_SizeDelta: {x: 486, y: -15.00244}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1072054610
 MonoBehaviour:
@@ -6499,7 +6500,7 @@ MonoBehaviour:
   m_fontSizeMax: 72
   m_fontStyle: 1
   m_HorizontalAlignment: 2
-  m_VerticalAlignment: 256
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -7528,6 +7529,7 @@ MonoBehaviour:
   - {fileID: 1802553700}
   - {fileID: 2086613882}
   - {fileID: 957000185}
+  SpawnDirectionVector: {x: -1, y: 0, z: 0}
   DefaultPoolSize: 3
 --- !u!4 &1251433431
 Transform:
@@ -8315,6 +8317,7 @@ MonoBehaviour:
   - {fileID: 2053992790}
   - {fileID: 17528329}
   - {fileID: 643362081}
+  SpawnDirectionVector: {x: 1, y: 0, z: 0}
   DefaultPoolSize: 10
 --- !u!4 &1706524355
 Transform:
@@ -11144,6 +11147,7 @@ MonoBehaviour:
   - {fileID: 604914852}
   - {fileID: 1519129022}
   - {fileID: 635676871}
+  SpawnDirectionVector: {x: 1, y: 0, z: 0}
   DefaultPoolSize: 10
 --- !u!4 &2133085963
 Transform:

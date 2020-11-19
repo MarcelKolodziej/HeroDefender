@@ -9,6 +9,7 @@ public class EnemieSpawner : MonoBehaviour
     [SerializeField] private int MaxEnemies = 10;
     [SerializeField] private float SpawnRate = 1f;
     [SerializeField] private Transform[] EnemyPath;
+    [SerializeField] private Vector3 SpawnDirectionVector = Vector3.right;
 
     [Header("ObjectPoolSettings")]
     [SerializeField] private int DefaultPoolSize = 10;
@@ -77,7 +78,7 @@ public class EnemieSpawner : MonoBehaviour
                 enemy.transform.position = Vector3.MoveTowards(enemy.transform.position, EnemyPath[enemy.CurrentLocationIndex + 1].position, enemy.MovementSpeed * Time.deltaTime);
                 
                 targetDirection = (EnemyPath[enemy.CurrentLocationIndex + 1].transform.position - enemy.transform.position).normalized;
-                targetRotation = Quaternion.FromToRotation(Vector3.right, targetDirection);
+                targetRotation = Quaternion.FromToRotation(SpawnDirectionVector, targetDirection);
                 enemy.transform.rotation = Quaternion.RotateTowards(enemy.transform.rotation, targetRotation, Time.deltaTime * enemy.RotateSpeed);
 
                 if (enemy.transform.position == EnemyPath[enemy.CurrentLocationIndex + 1].position)

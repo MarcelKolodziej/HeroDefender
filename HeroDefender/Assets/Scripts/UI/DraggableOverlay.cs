@@ -32,4 +32,9 @@ public class DraggableOverlay : MonoBehaviour
             }
         }
     }
+
+    private void OnDisable()
+    {
+        EnemiesInsideCollisionRange = 0;
+    }
 }
