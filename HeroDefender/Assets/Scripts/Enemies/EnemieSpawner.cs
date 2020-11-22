@@ -44,15 +44,15 @@ public class EnemieSpawner : MonoBehaviour
             if (pooledEnemies.Count > 0)
             {
                 activeEnemies.Add(pooledEnemies.Dequeue());
-                Debug.Log("Take From Pool: " + pooledEnemies.Count);
+                //Debug.Log("Take From Pool: " + pooledEnemies.Count);
             }
             else
             {
                 activeEnemies.Add(Instantiate(EnemyPrefab));
-                Debug.Log("Spawn New: " + activeEnemies.Count);
+                //Debug.Log("Spawn New: " + activeEnemies.Count);
             }
 
-            activeEnemies[activeEnemies.Count - 1].RespawnEnemy();
+            activeEnemies[activeEnemies.Count - 1].RespawnEnemy(SpawnDirectionVector);
             activeEnemies[activeEnemies.Count - 1].transform.position = EnemyPath[0].position;
         }
     }
@@ -80,6 +80,7 @@ public class EnemieSpawner : MonoBehaviour
                 targetDirection = (EnemyPath[enemy.CurrentLocationIndex + 1].transform.position - enemy.transform.position).normalized;
                 targetRotation = Quaternion.FromToRotation(SpawnDirectionVector, targetDirection);
                 enemy.transform.rotation = Quaternion.RotateTowards(enemy.transform.rotation, targetRotation, Time.deltaTime * enemy.RotateSpeed);
+                enemy.UpdateSprite();
 
                 if (enemy.transform.position == EnemyPath[enemy.CurrentLocationIndex + 1].position)
                 {
